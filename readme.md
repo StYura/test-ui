@@ -61,9 +61,6 @@ You can view the workflow results under the **Actions** tab in your GitHub repos
 
 After the tests are completed via GitHub Actions, the Allure report is automatically published to GitHub Pages.
 
-1. Go to the repository **Settings**.
-2. Under the **Pages** section, you will find the link to your report.
-    - The report will be available at `https://<your-username>.github.io/<your-repo>/`.
+[Report page](https://styura.github.io/test-ui/allure-action/main/test/)
 
-Alternatively, if your GitHub Pages is already set up, access the report directly by visiting:
-
+and pick latest report
