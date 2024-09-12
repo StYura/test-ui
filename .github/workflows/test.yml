@@ -26,8 +26,12 @@ jobs:
         uses: stCarolas/setup-maven@v5
         with:
           maven-version: 3.8.2
-      - name: Setup Chrome
-        uses: browser-actions/setup-chrome@v1
+
+      - name: Setup chrome
+        run: |
+          sudo apt-get install libxss1 libappindicator1 libindicator7
+          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo apt install ./google-chrome*.deb
 
       - name: Run Selenide Tests
         run: mvn clean test
