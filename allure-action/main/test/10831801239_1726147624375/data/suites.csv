@@ -1,0 +1,2 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","3877","compareTables","UI table suite","Thu Sep 12 13:26:59 UTC 2024","failed","Thu Sep 12 13:27:03 UTC 2024","org.table.test_task_ui.MainPageTest","table comparison test","org.table.test_task_ui.MainPageTest","compareTables"
