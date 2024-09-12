@@ -8,6 +8,9 @@ jobs:
     name: Run Tests
     runs-on: ubuntu-latest
 
+    permissions:
+      pages: write
+
     services:
       # Chrome service for running tests in the browser
       xvfb:
