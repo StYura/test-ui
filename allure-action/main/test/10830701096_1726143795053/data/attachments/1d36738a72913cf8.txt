@@ -1,0 +1,1 @@
+Stock Price mismatch: 107.48 != 107.44
