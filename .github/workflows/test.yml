@@ -1,0 +1,60 @@
+name: Run table comparison test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+
+    services:
+      # Chrome service for running tests in the browser
+      xvfb:
+        image: selenium/standalone-chrome
+        options: --shm-size 2g
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'maven'
+
+      - name: Set up Maven
+        uses: stCarolas/setup-maven@v4.5
+        with:
+          maven-version: 3.8.2
+
+      - name: Run Selenide Tests
+        run: mvn clean test
+
+      - name: Checkout gh-pages
+        uses: actions/checkout@v4
+        if: always()
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: gh-pages-dir
+
+      - name: Allure Report Action
+        uses: mgrybyk-org/allure-report-branch-js-action@v1
+        if: always()
+        continue-on-error: true
+        id: allure # used in comment to PR
+        with:
+          report_id: 'test'
+          gh_pages: 'gh-pages-dir'
+          report_dir: 'allure-results'
+          max_reports: 30
+
+      - name: Git Commit and Push Action
+        uses: mgrybyk-org/git-commit-pull-push-action@v1
+        if: always()
+        with:
+          repository: gh-pages-dir
+          branch: gh-pages
+          pull_args: --rebase -X ours
+

@@ -1,10 +1,7 @@
 package org.table.test_task_ui;
 
-import com.codeborne.selenide.logevents.SelenideLogger;
-import io.qameta.allure.selenide.AllureSelenide;
 import org.table.test_task_ui.models.CompanyUIModel;
 import org.table.test_task_ui.page_objects.MainPage;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -13,25 +10,16 @@ import java.util.List;
 import static com.codeborne.selenide.Selenide.open;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class MainPageTest {
-    MainPage mainPage = new MainPage();
-
-    @BeforeClass
-    public void setUpAll() {
-        SelenideLogger.addListener("AllureSelenide",
-                new AllureSelenide()
-                        .screenshots(true)
-                        .includeSelenideSteps(false)
-                        .savePageSource(true));
-    }
+public class MainPageTest extends BaseTest {
 
     @BeforeMethod
     public void setUp() {
-        open("https://ui-automation-app.web.app/");
+        open(getUrl());
     }
 
     @Test
     public void compareTables() {
+        MainPage mainPage = new MainPage();
         mainPage.clickOnTable1();
         List<CompanyUIModel> table1Items = mainPage.getTableItems();
         mainPage.clickOnTable2();
@@ -44,7 +32,7 @@ public class MainPageTest {
                     .filter(table2item -> table2item.getCompanyName().equals(table1Item.getCompanyName()))
                     .findFirst()
                     .orElseThrow();
-            return table1Item.equals(table2Item);
+            return table1Item.equalsCompany(table2Item);
         });
     }
 

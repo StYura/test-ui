@@ -2,6 +2,7 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 <suite name="UI table suite">
     <test name="table comparison test">
+        <parameter name="env" value="dev"></parameter>
         <classes>
             <class name="org.table.test_task_ui.MainPageTest"></class>
         </classes>

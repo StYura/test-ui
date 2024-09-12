@@ -16,15 +16,33 @@ public class CompanyUIModel {
     private BigDecimal stockPrice;
     private BigDecimal marketCap;
 
-    public boolean equals(CompanyUIModel companyUIModel) {
-        if (!this.companyName.equals(companyUIModel.getCompanyName())
-            || !this.ticker.equals(companyUIModel.getTicker())
-            || !this.cobDate.equals(companyUIModel.getCobDate())
-            || !this.stockPrice.equals(companyUIModel.getStockPrice())
-            || !this.marketCap.equals(companyUIModel.getMarketCap())) {
-            Allure.attachment("Company comparison error: ", "Company from table 1 %s should be equal to %s but it wasn't".formatted(this.toString(), companyUIModel.toString()));
-            return false;
+    public boolean equalsCompany(CompanyUIModel companyUIModel) {
+        boolean isEqual = true;
+
+        if (!this.ticker.equals(companyUIModel.getTicker())) {
+            Allure.attachment("Company %s comparison error: ".formatted(companyUIModel.getCompanyName()),
+                    String.format("Ticker mismatch: %s != %s", this.ticker, companyUIModel.getTicker()));
+            isEqual = false;
         }
-        return true;
+
+        if (!this.cobDate.equals(companyUIModel.getCobDate())) {
+            Allure.attachment("Company %s comparison error: ".formatted(companyUIModel.getCompanyName()),
+                    String.format("COB Date mismatch: %s != %s", this.cobDate, companyUIModel.getCobDate()));
+            isEqual = false;
         }
+
+        if (!this.stockPrice.equals(companyUIModel.getStockPrice())) {
+            Allure.attachment("Company %s comparison error: ".formatted(companyUIModel.getCompanyName()),
+                    String.format("Stock Price mismatch: %s != %s", this.stockPrice, companyUIModel.getStockPrice()));
+            isEqual = false;
+        }
+
+        if (!this.marketCap.equals(companyUIModel.getMarketCap())) {
+            Allure.attachment("Company %s comparison error: ".formatted(companyUIModel.getCompanyName()),
+                    String.format("Market Cap mismatch: %s != %s", this.marketCap, companyUIModel.getMarketCap()));
+            isEqual = false;
+        }
+
+        return isEqual;
     }
+}
