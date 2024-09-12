@@ -9,13 +9,9 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
+      actions: write
+      contents: write
       pages: write
-
-    services:
-      # Chrome service for running tests in the browser
-      xvfb:
-        image: selenium/standalone-chrome
-        options: --shm-size 2g
 
     steps:
       - uses: actions/checkout@v4
@@ -27,9 +23,11 @@ jobs:
           cache: 'maven'
 
       - name: Set up Maven
-        uses: stCarolas/setup-maven@v4.5
+        uses: stCarolas/setup-maven@v5
         with:
           maven-version: 3.8.2
+      - name: Setup Chrome
+        uses: browser-actions/setup-chrome@v1
 
       - name: Run Selenide Tests
         run: mvn clean test
