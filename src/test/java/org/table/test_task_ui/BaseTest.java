@@ -30,7 +30,7 @@ public class BaseTest {
         properties
                 .load(Thread.currentThread()
                         .getContextClassLoader()
-                        .getResourceAsStream(env));
+                        .getResourceAsStream(env + ".properties"));
         configuration.set(properties);
     }
 
