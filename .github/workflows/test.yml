@@ -34,7 +34,7 @@ jobs:
           sudo apt install ./google-chrome*.deb
 
       - name: Run Selenide Tests
-        run: mvn clean test
+        run: mvn clean test -Dselenide.headless=true
 
       - name: Checkout gh-pages
         uses: actions/checkout@v4
